@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ruppy privacy policy</title>
+<link rel="icon" href="icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body><main>
+<header><img src="icon.png" alt=""><b>Ruppy</b></header>
+<h1>Privacy policy</h1>
+<p class="meta">Effective 25 November 2026 · Ruppy: Daily Budget, by Design Abbey Studio</p>
+
+<div class="box"><strong>In short:</strong> your budget lives on your phone. Ruppy reads your bank SMS and payment notifications on your phone and never uploads them. If you sign in to share with family, your budget is encrypted on your phone first, so we can't read it. No ads, no tracking, and we never sell your data.</div>
+
+<h2>Who we are</h2>
+<p>Ruppy is made by Design Abbey Studio. For any question about your data, write to <a href="mailto:designabbey.studio@gmail.com">designabbey.studio@gmail.com</a>.</p>
+
+<h2>What Ruppy reads on your phone</h2>
+<p>Ruppy finds your payments so you don't have to type them. Everything below is read and processed on your phone. None of it is sent to us or to anyone else.</p>
+<div class="wrap"><table>
+<tr><th>What</th><th>Why</th><th>What happens to it</th></tr>
+<tr><td><strong>SMS</strong> (read only)</td><td>To find bank and card transactions: amounts, dates, the account's last digits and balances.</td><td>Read only while the app is open, looking back up to 45 days. OTPs, offers and personal messages are skipped. The amount and payee become a suggestion in Review, and nothing counts until you approve it. SMS text is never uploaded and is left out of backups.</td></tr>
+<tr><td><strong>Notifications</strong> (optional, you turn it on)</td><td>To catch payments from GPay, PhonePe, Paytm, BHIM, CRED and Amazon Pay.</td><td>Only notifications from those apps are kept, on your phone, for Review. You can turn this off in Android settings at any time.</td></tr>
+<tr><td><strong>Camera</strong></td><td>To scan a payment QR code.</td><td>Used only while the scanner is open. No photos or sound are recorded.</td></tr>
+<tr><td><strong>Photos and files you pick</strong></td><td>To read a payment screenshot, a QR image or a bank statement PDF.</td><td>Read on your phone, only when you choose one. Text in images is read by Google's on-device ML Kit. A statement's password is used only to open it and is never saved.</td></tr>
+<tr><td><strong>Installed payment apps</strong></td><td>To show the UPI apps you have, so you can pay with one.</td><td>Checked on your phone only.</td></tr>
+</table></div>
+
+<h2>What's stored on your phone</h2>
+<ul>
+<li>Your budget: income, fixed bills, expenses, accounts, cards and balances, in the app's private storage.</li>
+<li>A daily backup in <strong>Downloads › Daily Expense</strong> (the newest 7 are kept). It leaves out SMS text. Because it's in Downloads, apps you give file access to, and your own cloud sync, can see it.</li>
+<li>Today's amount for the home-screen widget, and your payment reminders (a title only, never an amount).</li>
+</ul>
+<p>Android's automatic Google backup is turned off for Ruppy.</p>
+
+<h2>What leaves your phone, and only if you sign in</h2>
+<p>You can use Ruppy without an account. Choose <strong>Continue on this phone only</strong> and nothing is sent anywhere. Signing in with Google is needed only for family sharing. If you sign in:</p>
+<div class="wrap"><table>
+<tr><th>Data</th><th>Why</th><th>Who can read it</th></tr>
+<tr><td>Your Google account id, email and name</td><td>To sign you in and show who's in your family.</td><td>Us, through our database provider, and your family members (your display name).</td></tr>
+<tr><td>Your family's name, members' display names, roles and invite codes</td><td>To run the family group.</td><td>Us and your family.</td></tr>
+<tr><td>Your budget and a daily summary (amounts, entries, accounts, limits)</td><td>So family members see one shared budget.</td><td><strong>Only your family.</strong> It's encrypted on your phone (XChaCha20-Poly1305) before upload, with a family key that stays on your family's phones. Our servers store only scrambled data we can't read. A child member sees only their own budget.</td></tr>
+</table></div>
+<p>Your review list, SMS text and payee rules are never shared, even with family. A "Spent for" tag is shared only when you mark that person as shared.</p>
+<p>The data is stored with <strong>Supabase</strong>, our database provider, and sign-in uses <strong>Google Sign-In</strong>. Everything is sent over encrypted connections (HTTPS).</p>
+
+<h2>What we don't do</h2>
+<ul>
+<li>No ads, and no advertising or analytics SDKs.</li>
+<li>We never sell, rent or share your data for marketing.</li>
+<li>We don't use your data for loans, credit scores or offers.</li>
+</ul>
+<p>Google's on-device ML Kit may send Google anonymous usage and diagnostic information about the SDK itself. This contains no images and no text from your images.</p>
+
+<h2>How long we keep it</h2>
+<p>Family data is kept while your account exists. Deleting your account removes it from our servers straight away. It also clears your budget, your daily backups, caught UPI notifications, reminder alerts and the widget's numbers from the phone. Without an account, your data stays on your phone until you delete it. Backups in Downloads survive uninstalling the app, so delete that folder if you want them gone.</p>
+
+<h2>Deleting your data</h2>
+<p>In the app, go to <strong>Settings › Account › Delete account</strong>. Without the app, write to us. The steps are on the <a href="delete-account.html">delete account page</a>.</p>
+
+<h2>Children</h2>
+<p>Ruppy is for adults managing a household budget. A parent can add a child to their family. The child's phone then shows only that child's own limit, and the parent manages the account.</p>
+
+<h2>Changes</h2>
+<p>If this policy changes, we'll update this page and the date at the top. If a change affects what leaves your phone, we'll also tell you in the app.</p>
+
+<footer>© 2026 Design Abbey Studio · <a href="delete-account.html">Delete your account</a></footer>
+</main></body>
+</html>
