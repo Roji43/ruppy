@@ -3,20 +3,186 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ruppy: Daily Budget</title>
-<link rel="icon" href="icon.png">
-<link rel="stylesheet" href="style.css">
+<title>Ruppy · How much can we spend today?</title>
+<meta name="description" content="One month, day by day, and the question Ruppy answers every day: how much can we spend today? For one person or a whole family. Free, no ads, no bank login. Coming soon to Google Play.">
+<link rel="icon" href="assets/ruppy-app-icon.png">
+<link rel="stylesheet" href="story.css">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+.dev .scr{position:absolute;left:12px;top:12px;width:412px;height:915px;border-radius:54px;overflow:hidden;font-size:13px;
+  --lime:#C9F26B;--paper:#F2F4F3;--surface:#fff;--ink:#111816;--muted:#55615D;--line:#DCE3E0;--sv:#E9EEEC;--green:#0B6B4F;--soft:#DDF1E8;--gold:#8A5A00;--goldsoft:#FFF1D6;--inv:#111816;--oninv:#fff;
+  background:var(--paper);color:var(--ink)}
+.dev .scr.dk{--paper:#0E1211;--surface:#171C1A;--ink:#E8EDEB;--muted:#A3AEA9;--line:#2E3633;--sv:#222926;--green:#6FD3A8;--soft:#173328;--gold:#F0BE55;--goldsoft:#3A2C0A;--inv:#E8EDEB;--oninv:#0E1211}
+.dev .island{position:absolute;left:146px;top:14px;width:120px;height:34px;border-radius:17px;background:#000;z-index:5}
+.dev .hero{color:#111816;position:absolute}
+.dev .hero .bar i{background:#111816}
+.dev /* app UI (from the product carousel, .dev made-up data) */
+    .b{ position: absolute; left: 14px; right: 14px; }
+.dev .sb{ position: absolute; left: 0; right: 0; top: 0; height: 50px; display: flex; justify-content: space-between; align-items: center; padding: 6px 30px 0; font-size: 14px; font-weight: 700; }
+.dev .top{ position: absolute; left: 0; right: 0; top: 54px; display: flex; justify-content: space-between; align-items: flex-end; padding: 0 18px; }
+.dev .top small{ display: block; font-size: 12px; color: var(--muted); font-weight: 600; }
+.dev .top b{ font-size: 28px; font-weight: 800; letter-spacing: -.8px; }
+.dev .ic{ width: 36px; height: 36px; border-radius: 50%; background: var(--surface); display: inline-grid; place-items: center; font-size: 15px; margin-left: 6px; }
+.dev .hero{ background: var(--lime); border-radius: 24px; padding: 18px; }
+.dev .hero small{ font-size: 13px; font-weight: 600; }
+.dev .hero .n{ font-size: 44px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-top: 4px; }
+.dev .hero img{ position: absolute; right: 14px; top: 14px; width: 58px; height: 58px; border-radius: 16px; }
+.dev .bar{ height: 8px; border-radius: 4px; background: rgba(17,24,22,.15); overflow: hidden; margin-top: 10px; }
+.dev .bar i{ display: block; height: 100%; background: var(--ink); border-radius: 4px; }
+.dev .row{ display: flex; justify-content: space-between; align-items: baseline; margin-top: 8px; font-weight: 700; font-size: 13px; }
+.dev .row b{ font-size: 22px; font-weight: 800; letter-spacing: -.5px; }
+.dev .sub{ display: flex; justify-content: space-between; border-top: 1px solid rgba(17,24,22,.15); margin-top: 10px; padding-top: 8px; font-size: 12px; font-weight: 600; }
+.dev .seg{ display: flex; background: var(--surface); border-radius: 999px; padding: 4px; }
+.dev .seg span{ flex: 1; text-align: center; font-weight: 700; font-size: 13px; padding: 9px; border-radius: 999px; color: var(--muted); }
+.dev .seg .on{ background: var(--inv); color: var(--oninv); }
+.dev .card{ background: var(--surface); border-radius: 20px; padding: 14px 16px; display: grid; gap: 6px; }
+.dev .card .t{ display: flex; justify-content: space-between; font-weight: 800; font-size: 15px; }
+.dev .card .s{ font-size: 11.5px; color: var(--muted); font-weight: 600; }
+.dev .chip{ display: inline-block; font-size: 10.5px; font-weight: 700; border-radius: 999px; padding: 3px 9px; background: var(--sv); color: var(--muted); margin-right: 4px; }
+.dev .chip.ok{ background: var(--soft); color: var(--green); }
+.dev .chip.warn{ background: var(--goldsoft); color: var(--gold); }
+.dev .btns{ display: flex; gap: 8px; margin-top: 4px; }
+.dev .btns span{ flex: 1; text-align: center; border-radius: 999px; padding: 10px; font-weight: 800; font-size: 12.5px; background: var(--sv); position: relative; }
+.dev .btns .p{ background: var(--inv); color: var(--oninv); }
+.dev .btns .p u{ position: absolute; inset: 0; border-radius: 999px; background: var(--green); color: #fff; text-decoration: none; padding: 10px; opacity: 0; }
+.dev .nav{ position: absolute; left: 14px; right: 14px; bottom: 30px; height: 60px; background: var(--inv); border-radius: 999px; display: flex; align-items: center; justify-content: space-around; padding: 0 6px; color: var(--oninv); }
+.dev .nav .t{ height: 44px; min-width: 44px; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 999px; font-size: 15px; font-weight: 800; }
+.dev .nav .t svg{ width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.dev .nav .t.on{ background: var(--lime); color: #111816; padding: 0 18px 0 14px; }
+.dev .nav .rv{ position: relative; width: 70px; height: 70px; margin-top: -24px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 0 4px var(--paper); display: grid; place-items: center; color: #111816; }
+.dev .nav .rv svg{ width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.dev .nav .rv b{ position: absolute; right: -2px; top: -4px; width: 22px; height: 22px; border-radius: 50%; background: var(--inv); color: var(--oninv); font-size: 12px; font-weight: 800; display: grid; place-items: center; box-shadow: 0 0 0 2px var(--paper); }
+.dev .home{ position: absolute; left: 146px; bottom: 10px; width: 120px; height: 5px; border-radius: 3px; background: var(--ink); }
+.dev .lst{ display: grid; }
+.dev .lst div{ display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 12.5px; font-weight: 600; }
+.dev .lst div:last-child{ border: 0; }
+.dev .lst small{ display: block; font-size: 10.5px; color: var(--muted); }
+.dev .tabs{ display: flex; gap: 4px; background: var(--sv); border-radius: 999px; padding: 4px; }
+.dev .tabs span{ flex: 1; text-align: center; font-size: 11.5px; font-weight: 700; padding: 7px 4px; border-radius: 999px; color: var(--muted); }
+.dev .tabs .on{ background: var(--inv); color: var(--oninv); }
+.dev .month{ display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 15px; padding: 0 4px; }
+.dev .month i{ font-style: normal; width: 30px; height: 30px; border-radius: 50%; background: var(--surface); display: grid; place-items: center; font-size: 13px; }
+.dev .date{ font-size: 12px; color: var(--muted); font-weight: 600; }
+</style>
 </head>
-<body><main>
-<header><img src="icon.png" alt=""><b>Ruppy</b></header>
-<h1>How much can we spend today?</h1>
-<p class="meta">Ruppy: Daily Budget, by Design Abbey Studio</p>
-<p>Ruppy takes your month's income, keeps your fixed bills aside, and shares what's left across the days of the month. Free forever, no ads.</p>
-<ul>
-<li><a href="privacy.html">Privacy policy</a></li>
-<li><a href="delete-account.html">Delete your account</a></li>
-<li>Contact: <a href="mailto:designabbey.studio@gmail.com">designabbey.studio@gmail.com</a></li>
-</ul>
-<footer>© 2026 Design Abbey Studio</footer>
-</main></body>
+<body>
+<header class="bar"><a class="logo" href="#top"><img src="assets/ruppy-app-icon.png" alt=""><b>Ruppy</b></a><span class="soon">Coming soon to Google Play</span></header>
+
+<main id="top">
+<section class="opening">
+  <p class="eyebrow-line"><span class="v-fam">A month in one family's life</span><span class="v-solo">A month in one person's life</span></p>
+  <h1>This is <span class="v-fam"><span class="v-name">the </span><span class="v-you"></span></span><span class="v-solo"></span><label class="name-field"><input id="family" aria-label="Your name or family name" value="" placeholder="your" maxlength="18" autocomplete="off" spellcheck="false" aria-describedby="name-hint"></label><span class="v-fam"> family's</span><span class="v-solo"><span class="v-name">'s</span><span class="v-you"></span></span> month.</h1>
+  <fieldset class="mode"><legend class="sr">Whose month is it?</legend><label><input type="radio" name="mode" value="family" checked><span>My family</span></label><label><input type="radio" name="mode" value="solo"><span>Just me</span></label></fieldset>
+  <p class="name-hint" id="name-hint">Ruppy works for one person or a whole family. Pick one, type your name or your family name, and the story becomes yours. Leave it blank and the story speaks to you. Both choices stay only in this browser.</p>
+  <a class="scroll-cue" href="#story">Start on payday <span aria-hidden="true">↓</span></a>
+</section>
+
+<div class="story" id="story" style="--n:8">
+ <div class="pin">
+  <div class="stage" aria-hidden="true">
+    <div class="money"><svg viewBox="0 0 1000 300" preserveAspectRatio="none"><path class="ml-ghost" d=""/><path class="ml-line" d=""/></svg>
+      <div class="ml-dot"><i></i><span class="ml-val">₹0</span></div>
+      <div class="ml-axis"><span>1 Nov</span><span>10</span><span>20</span><span>30 Nov</span></div></div>
+    <div class="phone"><div class="dev"><div class="scr"><div class="island"></div><div class="scene-screen" data-i="0"><div class="st st-splash"><img src="assets/ruppy-app-icon.png" alt=""><b>Ruppy</b><span>How much can we spend today?</span></div></div><div class="scene-screen" data-i="1"><div class="st st-lock"><div class="lk-time">9:41</div><div class="lk-date">Sunday, 1 November</div><div class="lk-note bank"><i>BK</i><div><small>Messages · BANK</small><b>Rs 65,000.00 credited</b><span>to A/c XX1234 · Salary · Avl bal Rs 66,840</span></div></div></div></div><div class="scene-screen" data-i="2"><div class="st st-lock"><div class="lk-time">9:41</div><div class="lk-date">Sunday, 1 November</div><div class="lk-note bank"><i>BK</i><div><small>Messages · BANK</small><b>Rs 18,000.00 debited</b><span>Rent · UPI</span></div></div><div class="lk-note bank"><i>BK</i><div><small>Messages · BANK</small><b>Rs 7,000.00 debited</b><span>EMI · Home loan</span></div></div><div class="lk-note bank"><i>BK</i><div><small>Messages · BANK</small><b>Rs 2,800.00 debited</b><span>School fee · UPI</span></div></div></div></div><div class="scene-screen" data-i="3"><div class="st st-chat"><span class="v-fam"><div class="ch-top"><b><span class="v-fam"><span class="v-name"><span class="fam">Holy</span></span><span class="v-you">Your</span></span><span class="v-solo"><span class="fam">Holy</span></span> family</b><small>3 members</small></div><p class="ch in"><small>Meera</small>Can we order dinner tonight? 🍕</p><p class="ch out">Let me check…</p><p class="ch in"><small>Rahul</small>Is there money left this month?</p></span><span class="v-solo"><div class="ch-top"><b>Friends</b><small>4 members</small></div><p class="ch in"><small>Anu</small>Dinner out tonight? 🍕</p><p class="ch out">Let me check…</p><p class="ch in"><small>Vivek</small>Splitting four ways, ₹600 each</p></span></div></div><div class="scene-screen" data-i="4"><div class="st st-img"><img src="assets/screens/today-3nov.png" alt=""></div></div><div class="scene-screen" data-i="5"><div class="st st-img"><img src="assets/screens/review-teashop.png" alt=""></div></div><div class="scene-screen" data-i="6"><div class="st st-img"><img src="assets/screens/today-11nov.png" alt=""></div></div><div class="scene-screen" data-i="7"><div class="st st-img"><img src="assets/screens/family-15nov.png" alt=""></div></div><div class="scene-screen" data-i="8"><div class="st st-img"><img src="assets/screens/ledger-30nov.png" alt=""></div></div></div></div></div>
+  </div>
+  <div class="track"><div class="chapters"><section class="chapter" id="day-1" data-i="1" data-n="2"><p class="stamp">Sunday, 1 November · 9:02 am</p><h2>Salary day.</h2><p class="para"><span class="v-fam"><span class="v-name">The <span class="fam">Holy</span> family's</span><span class="v-you">Your family's</span></span><span class="v-solo"><span class="v-name"><span class="fam">Holy</span>'s</span><span class="v-you">Your</span></span> salary lands: <b>₹65,000</b>. For about an hour, the month feels enormous.</p></section><section class="chapter" id="day-2" data-i="2" data-n="3"><p class="stamp">Sunday, 1 November · evening</p><h2>Then it scatters.</h2><p class="para">Rent <b>₹18,000</b>. Home-loan EMI <b>₹7,000</b>. School fee <b>₹2,800</b>. By night, <span class="v-fam"><span class="v-name">the <span class="fam">Holy</span> family has</span><span class="v-you">your family has</span></span><span class="v-solo"><span class="v-name"><span class="fam">Holy</span> has</span><span class="v-you">you have</span></span> <b>₹37,200</b> left for thirty days. Is that a lot? Nobody can say.</p></section><section class="chapter" id="day-3" data-i="3" data-n="6"><p class="stamp">Tuesday, 3 November · 8:40 pm</p><h2><span class="v-fam">“Can we order dinner tonight?”</span><span class="v-solo">“Can I order dinner tonight?”</span></h2><p class="para">It's the question everyone asks, and the bank app can't answer it. It only knows the balance, not what the rest of the month still needs.</p></section><section class="chapter" id="day-4" data-i="4" data-n="6"><p class="stamp">Same evening · 8:41 pm</p><h2>Ruppy already knows.</h2><p class="para">₹37,200 shared across 30 days is <b>₹1,240 a day</b>. <span class="v-fam"><span class="v-name">The <span class="fam">Holy</span> family has</span><span class="v-you">Your family has</span></span><span class="v-solo"><span class="v-name"><span class="fam">Holy</span> has</span><span class="v-you">You have</span></span> spent ₹470 today, so <b>₹770 is left</b>. A ₹600 dinner fits. Order it.</p></section><section class="chapter" id="day-5" data-i="5" data-n="6"><p class="stamp">Same evening · 9:15 pm</p><h2>The bank texts. Ruppy reads it.</h2><p class="para">Ruppy reads the payment SMS on the phone and lines it up for review. Nothing counts until someone taps OK, and the message never leaves the phone. No bank login.</p></section><section class="chapter" id="day-6" data-i="6" data-n="13"><p class="stamp">Tuesday, 10 November</p><h2>A ₹600 slip.</h2><p class="para">A wedding gift costs more than planned. No red alerts, no guilt. With 20 days left, tomorrow's limit just drops by <b>₹30 a day</b>.</p></section><section class="chapter" id="day-7" data-i="7" data-n="18"><p class="stamp">Sunday, 15 November</p><h2><span class="v-fam">Everyone sees the same number.</span><span class="v-solo">Add family later, if you want.</span></h2><p class="para"><span class="v-fam">You add the Fresh Mart groceries on your phone; Arjun adds his on his. One budget for the whole <span class="v-fam"><span class="v-name"><span class="fam">Holy</span> family</span><span class="v-you">family</span></span><span class="v-solo"><span class="fam">Holy</span> family</span>, encrypted on the phone before it's shared.</span><span class="v-solo">On your own, Ruppy is a personal budget. When you're ready, invite a partner or a parent: one shared budget, encrypted on the phone before it's shared.</span></p></section><section class="chapter" id="day-8" data-i="8" data-n="33"><p class="stamp">Monday, 30 November</p><h2>Month-end. It matches the bank.</h2><p class="para">Every day explains itself, and <span class="v-fam"><span class="v-name">the <span class="fam">Holy</span> family's</span><span class="v-you">your family's</span></span><span class="v-solo"><span class="v-name"><span class="fam">Holy</span>'s</span><span class="v-you">your</span></span> balance matches the bank to the rupee. Left over: <b>₹2,350</b>. Into savings it goes.</p></section></div>
+    <div class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+ </div>
+</div>
+
+<section class="recap" id="features"><h2>Everything <span class="v-fam"><span class="v-name">the <span class="fam">Holy</span> family</span><span class="v-you">your family</span></span><span class="v-solo"><span class="v-name"><span class="fam">Holy</span></span><span class="v-you">you</span></span> used this month.</h2><p class="recap-sub">Tap one to see the day it happened.</p><ol class="used"><li><a href="#day-2"><span class="f-day">1 Nov</span><b>Fixed bills set aside</b><span class="f-line">Rent, EMIs and fees are kept aside before the month is shared out.</span><span class="f-go" aria-hidden="true">↑</span></a></li><li><a href="#day-4"><span class="f-day">3 Nov</span><b>Today's limit</b><span class="f-line">The month's money shared across its days, updated with every payment.</span><span class="f-go" aria-hidden="true">↑</span></a></li><li><a href="#day-5"><span class="f-day">3 Nov</span><b>Review before it counts</b><span class="f-line">Payments from bank SMS and UPI app notifications wait for your OK.</span><span class="f-go" aria-hidden="true">↑</span></a></li><li><a href="#day-6"><span class="f-day">10 Nov</span><b>Calm overspending</b><span class="f-line">Over today? It's spread as a small cut over the days left. Spend less, and it carries to tomorrow.</span><span class="f-go" aria-hidden="true">↑</span></a></li><li><a href="#day-7"><span class="f-day">15 Nov</span><b>Family sharing</b><span class="f-line">Optional. One budget on every phone, with roles for partners and children, encrypted on the phone.</span><span class="f-go" aria-hidden="true">↑</span></a></li><li><a href="#day-8"><span class="f-day">30 Nov</span><b>Month-end check</b><span class="f-line">Confirm each balance against the bank, and add any gap in one tap.</span><span class="f-go" aria-hidden="true">↑</span></a></li></ol><h3 class="more-h">And what the story didn't get to</h3><ul class="more"><li><b>Cards and due dates</b><span>Card cycles, bills and due tags from your SMS, so no due date slips by.</span></li><li><b>Bill reminders</b><span>Fees, insurance and EMIs, with a reminder on the day.</span></li><li><b>Statement import</b><span>Bank and card statement PDFs, read on the phone. The password is never saved.</span></li><li><b>Scan and pay</b><span>Scan a UPI QR, see today's limit, then pay in your UPI app.</span></li><li><b>Home-screen widget</b><span>Today's limit without opening the app.</span></li><li><b>Month starts on payday</b><span>Start the month on salary day instead of the 1st.</span></li><li><b>Daily backup</b><span>A copy saved in Downloads every day, ready to restore after a reinstall.</span></li></ul></section><section class="how" id="how"><h2>How it works, in three steps</h2><div class="how-grid"><div class="calc" aria-label="Example: ₹65,000 income minus ₹27,800 fixed bills, shared across 30 days, is ₹1,240 for today."><small>Today's limit</small><b class="calc-n">₹1,240</b><dl><div><dt>Money in</dt><dd>₹65,000</dd></div><div><dt>Fixed bills</dt><dd>− ₹27,800</dd></div><div><dt>Shared across</dt><dd>30 days</dd></div></dl><p class="calc-carry">Spend less today, and it carries to tomorrow: ₹1,240 − ₹1,090 spent = <b>₹150 carried over</b>.</p></div><ol class="hw"><li><span class="hw-n">1</span><div><b>Money in</b><p>Salary and any other income go into the month.</p></div></li><li><span class="hw-n">2</span><div><b>Bills set aside</b><p>Rent, EMIs and subscriptions are kept aside first.</p></div></li><li><span class="hw-n">3</span><div><b>Today's limit</b><p>What's left is shared across the days of the month.</p></div></li></ol></div></section><section class="why"><h2>We read 1,185 reviews of six budget apps.<br><span>Then we fixed what people hated.</span></h2><div class="why-stats"><div class="why-stat"><b>1,185</b><span>reviews of six budget apps read</span><p>Before writing a line of code.</p></div><div class="why-stat"><b>178</b><span>about bank sync breaking</span><p>Ruppy reads your bank’s SMS. There is no bank login to break.</p></div><div class="why-stat"><b>157</b><span>about paywalls and subscriptions</span><p>Ruppy is free, with no ads.</p></div><div class="why-stat"><b>123</b><span>about data lost after updates</span><p>Your budget is saved on your phone and backed up every day.</p></div></div><p class="why-note">App Store India reviews, collected in October 2026.</p></section><section class="priv" id="privacy"><h2>Private by design</h2><div class="priv-grid"><article class="pcard"><h3>Stays on your phone</h3><ul><li>Use it without an account. Nothing leaves your phone.</li><li>SMS are read on your phone and never uploaded.</li><li>Family sharing is encrypted on your phone first, so we can't read it.</li><li>No ads, no tracking, never sold.</li></ul></article><article class="pcard"><h3>Nothing counts until you say OK</h3><p>Every payment Ruppy finds waits in Review. You add it, or ignore it.</p><div class="rv" aria-hidden="true"><div class="rv-row"><div><b>Tea Shop</b><small>Bank SMS · HDFC ••1234</small></div><span>₹120</span></div><div class="rv-btns"><span>Ignore</span><span class="on">Add expense</span></div><div class="rv-row dim"><div><b>Green Grocers</b><small>UPI app · waiting for the bank SMS</small></div><span>₹640</span></div></div></article></div></section><section class="faq" id="faq"><h2>Questions <span class="v-fam"><span class="v-name">the <span class="fam">Holy</span> family</span><span class="v-you">your family</span></span><span class="v-solo"><span class="v-name"><span class="fam">Holy</span></span><span class="v-you">you</span></span> might have</h2><div class="qs"><details class="q"><summary>Is Ruppy free?</summary><p>Yes. Free for everyone, with no ads and no subscriptions.</p></details><details class="q"><summary>Do I need a family to use Ruppy?</summary><p>No. Ruppy works as a personal budget for one person. Family sharing is optional, and you can add family members any time.</p></details><details class="q"><summary>Does it need my bank login?</summary><p>No. Ruppy reads the payment SMS your bank already sends you, on your phone. Nothing counts until you approve it in Review.</p></details><details class="q"><summary>Which banks and UPI apps does it work with?</summary><p>Any bank that sends payment SMS. With notification access on, it also catches payments from GPay, PhonePe, Paytm, BHIM, CRED and Amazon Pay.</p></details><details class="q"><summary>Is my data uploaded?</summary><p>Not unless you choose family sharing. Choose “Continue on this phone only” and nothing leaves your phone. With family sharing, your budget is encrypted on your phone before it is sent, so we can’t read it. SMS text is never uploaded.</p></details><details class="q"><summary>When can I get it?</summary><p>Ruppy is coming soon to Google Play, for Android.</p></details></div><p class="faq-mail">Something else? Write to <a href="mailto:designabbey.studio@gmail.com">designabbey.studio@gmail.com</a>.</p></section>
+<section class="ending">
+  <img class="end-icon" src="assets/ruppy-app-icon.png" alt="The Ruppy app icon: Wally the wallet with a rupee coin">
+  <h2>Next month, <span class="v-fam"><span class="v-name">the <span class="fam">Holy</span> family won't ask.</span><span class="v-you">your family won't ask.</span></span><span class="v-solo"><span class="v-name"><span class="fam">Holy</span> won't wonder.</span><span class="v-you">you won't wonder.</span></span><br><em><span class="v-fam">They'll just check.</span><span class="v-solo">Just check.</span></em></h2>
+  <p class="end-q"><span class="v-fam">How much can we spend today?</span><span class="v-solo">How much can I spend today?</span></p>
+  <ul class="facts"><li>For one person or a whole family</li><li>Free, no ads</li><li>No bank login</li><li>Your SMS stay on your phone</li><li>Works without an account</li></ul>
+  <p class="soon big">Coming soon to Google Play</p>
+  <p class="end-line">Spend a little each day. Save the rest.</p>
+</section>
+</main>
+
+<footer class="foot">
+  <a href="privacy.html">Privacy policy</a><a href="delete-account.html">Delete your account</a><a href="mailto:designabbey.studio@gmail.com">Contact</a>
+  <p>© 2026 Design Abbey Studio. The story and its numbers are an example. Google Play is a trademark of Google LLC.</p>
+</footer>
+
+<script>
+(() => {
+  const LINE = [[0, 0], [1, 65000], [1, 37200], [1, 36060], [2, 34920], [3, 33850], [4, 32710], [5, 31570], [6, 30430], [7, 29290], [8, 28150], [9, 27010], [10, 25170], [11, 24030], [12, 22890], [13, 21750], [14, 20610], [15, 19470], [16, 18330], [17, 17190], [18, 16050], [19, 14910], [20, 13770], [21, 12630], [22, 11490], [23, 10350], [24, 9210], [25, 8070], [26, 6930], [27, 5790], [28, 4650], [29, 3510], [30, 2350]], MAX = 65000, DAYS = 30;
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // the family name, typed by the visitor; textContent only, never HTML
+  const input = document.getElementById('family');
+  // remembered in this browser only (a per-viewer convenience); storage can be blocked, so every access is guarded
+  try { const saved = localStorage.getItem('ruppy-family'); if (saved) input.value = saved; } catch (e) {}
+  const setName = () => { const v = input.value.trim() || 'Holy'; document.querySelectorAll('.fam').forEach(e => e.textContent = v);
+    document.documentElement.classList.toggle('anon', !input.value.trim());
+    try { input.value.trim() ? localStorage.setItem('ruppy-family', input.value.trim()) : localStorage.removeItem('ruppy-family'); } catch (e) {} };
+  // size the field to the name (field-sizing isn't everywhere yet)
+  const mirror = document.createElement('span'); mirror.className = 'name-ghost'; mirror.setAttribute('aria-hidden', 'true');
+  input.parentNode.appendChild(mirror);
+  const fit = () => { mirror.textContent = input.value || input.placeholder; input.style.width = (mirror.offsetWidth + 2) + 'px'; };
+  addEventListener('resize', fit);
+  input.addEventListener('input', () => { setName(); fit(); }); setName(); document.fonts.ready.then(fit);
+
+  // My family / Just me: a class on <html> picks which version of each line shows; remembered in this browser only
+  const radios = document.querySelectorAll('input[name=mode]');
+  const setMode = m => { document.documentElement.classList.toggle('solo', m === 'solo'); radios.forEach(r => r.checked = r.value === m);
+    try { localStorage.setItem('ruppy-mode', m); } catch (e) {} fit(); };
+  radios.forEach(r => r.addEventListener('change', () => setMode(r.value)));
+  let mode = 'family'; try { mode = localStorage.getItem('ruppy-mode') === 'solo' ? 'solo' : 'family'; } catch (e) {}
+  setMode(mode);
+
+  // money line: x = day, y = balance
+  const X = d => d / DAYS * 1000, Y = v => 290 - v / MAX * 270;
+  const path = pts => pts.map((p, i) => (i ? 'L' : 'M') + X(p[0]).toFixed(1) + ' ' + Y(p[1]).toFixed(1)).join(' ');
+  const ghost = document.querySelector('.ml-ghost'), live = document.querySelector('.ml-line');
+  const dot = document.querySelector('.ml-dot'), val = document.querySelector('.ml-val');
+  ghost.setAttribute('d', path(LINE));
+  function showDay(n) {
+    const pts = LINE.slice(0, n);
+    live.setAttribute('d', path(pts));
+    const last = pts[pts.length - 1];
+    dot.style.left = (X(last[0]) / 10) + '%'; dot.style.top = (Y(last[1]) / 3) + '%';
+    val.textContent = '₹' + last[1].toLocaleString('en-IN');
+    dot.classList.toggle('hide', n < 2);
+    dot.classList.toggle('flip', last[0] > DAYS * .7);
+  }
+
+  const screens = document.querySelectorAll('.scene-screen');
+  function go(i, n) { screens.forEach(s => s.classList.toggle('on', +s.dataset.i === i)); showDay(n); }
+  go(0, 1);
+  // the story pins; scrolling down moves the scenes sideways, one scene per screen of scroll
+  const story = document.getElementById('story'), track = document.querySelector('.chapters');
+  const chs = [...document.querySelectorAll('.chapter')], dots = [...document.querySelectorAll('.dots i')];
+  const span = () => story.offsetHeight - innerHeight;
+  let cur = -1;
+  function onScroll() {
+    const p = Math.min(Math.max(-story.getBoundingClientRect().top / span(), 0), 0.9999);
+    const k = Math.floor(p * chs.length);
+    if (k === cur) return;
+    cur = k; track.style.setProperty('--i', k);
+    chs.forEach((c, j) => { c.classList.toggle('now', j === k); c.setAttribute('aria-hidden', j === k ? 'false' : 'true'); });
+    dots.forEach((d, j) => d.classList.toggle('on', j === k));
+    go(+chs[k].dataset.i, +chs[k].dataset.n);
+  }
+  addEventListener('scroll', () => requestAnimationFrame(onScroll), { passive: true });
+  // links to a day (from the features list) scroll to that scene's slice of the story
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#day-"]'); if (!a) return;
+    const j = chs.findIndex(c => c.id === a.hash.slice(1)); if (j < 0) return;
+    e.preventDefault(); history.replaceState(null, '', a.hash);
+    scrollTo({ top: story.offsetTop + (j + .5) * span() / chs.length, behavior: still ? 'auto' : 'smooth' });
+  });
+  // size the phone to the space the stage really has, so it always sits fully on screen
+  const phone = document.querySelector('.phone'), stage = document.querySelector('.stage'), money = document.querySelector('.money');
+  const fitPhone = () => { const cs = getComputedStyle(stage), pad = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom) + parseFloat(cs.rowGap || cs.gap || 0);
+    const room = (innerWidth <= 860 ? innerHeight * .58 : stage.clientHeight) - pad - money.offsetHeight - 8;  // on phones the stage sizes to the phone, so use the screen
+    phone.style.setProperty('--s', Math.max(.2, Math.min(.62, room / 939)).toFixed(3)); };
+  addEventListener('resize', () => { fitPhone(); cur = -1; onScroll(); });
+  fitPhone(); onScroll();
+  if (location.hash.startsWith('#day-')) { const a = document.querySelector('a[href="' + location.hash + '"]'); if (a) a.click(); }
+  if (still) document.documentElement.classList.add('still');
+})();
+</script>
+</body>
 </html>
