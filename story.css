@@ -21,6 +21,12 @@ a{color:inherit}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
 .logo img{width:34px;height:34px;border-radius:10px}.logo b{font-size:20px;letter-spacing:-.03em}
 
+/* site nav: the sections outside the story, quiet like the bar */
+.nav{display:flex;align-items:center;gap:clamp(14px,2vw,26px)}
+.nav a{font-size:14px;font-weight:700;color:var(--muted);text-decoration:none;white-space:nowrap}
+.nav a:hover{color:var(--lime)}
+#how,#why,#features,#faq,#privacy{scroll-margin-top:90px}
+
 /* opening: the name field is the hook */
 .opening{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:120px clamp(16px,6vw,120px) 80px;max-width:1280px;margin:0 auto;
   background:radial-gradient(50% 60% at 85% 50%,rgba(201,242,107,.07),transparent 70%)}
@@ -226,7 +232,10 @@ html.anon .v-name,html:not(.anon) .v-you{display:none}
   .chapter h2{font-size:32px}
   .para{font-size:17px}
   .opening{padding:110px 16px 60px}
+  .bar{flex-wrap:wrap;row-gap:8px;padding-top:14px;padding-bottom:12px}
   .bar .soon{display:none}
+  .nav{order:3;width:100%;gap:6px 14px;flex-wrap:wrap}
+  .nav a{font-size:12.5px}
   .used a{grid-template-columns:64px minmax(0,1fr);gap:4px 14px}.used .f-line{grid-column:2}.f-go{display:none}
   .more{grid-template-columns:1fr}
   .recap,.faq{padding-top:80px}
