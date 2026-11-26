@@ -170,6 +170,33 @@ html.anon .v-name,html:not(.anon) .v-you{display:none}
 .rv-btns span{text-align:center;padding:10px;border-radius:999px;background:#E9EEEC;font-size:14px;font-weight:800}
 .rv-btns .on{background:var(--ink);color:#fff}
 
+/* parallax layers (moved by --py from the script) */
+.opening{position:relative;overflow:hidden}
+.opening > *:not(.hero-art){position:relative;z-index:2}
+.hero-art{position:absolute;inset:0;pointer-events:none;z-index:1}
+.hp{position:absolute;width:250px;aspect-ratio:412/915;border-radius:40px;background:#050707;padding:7px;
+  box-shadow:0 0 0 2px #2b3330,0 50px 90px -30px rgba(0,0,0,.9);transform:translate3d(0,var(--py,0),0) rotate(var(--r,0deg));will-change:transform}
+.hp img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;border-radius:33px}
+.hp1{right:4%;top:8%;--r:9deg;opacity:.35;filter:blur(2px);width:210px}
+.hp2{right:20%;top:30%;--r:-7deg;opacity:.6}
+.hp3{right:7%;top:36%;--r:5deg;width:270px;box-shadow:0 0 0 2px #2b3330,0 60px 100px -30px rgba(0,0,0,.95),0 0 120px -20px rgba(201,242,107,.25)}
+.pc{position:absolute;transform:translate3d(0,var(--py,0),0) rotate(var(--r,0deg));will-change:transform;filter:drop-shadow(0 18px 20px rgba(0,0,0,.55))}
+.pc1{width:92px;right:33%;top:20%;--r:-14deg}
+.pc2{width:54px;right:3%;top:74%;--r:18deg;filter:blur(2px)}
+.pc3{width:140px;right:28%;top:76%;--r:10deg;filter:blur(5px);opacity:.8}
+.ending{position:relative;overflow:hidden}
+.ending > *:not(.end-art){position:relative;z-index:2}
+.end-art{position:absolute;inset:0;pointer-events:none;z-index:1}
+.ec1{width:110px;left:12%;top:22%;--r:-12deg}
+.ec2{width:60px;right:16%;top:16%;--r:20deg;filter:blur(2px)}
+.ec3{width:120px;right:3%;bottom:3%;--r:8deg;filter:blur(4px);opacity:.7}
+@media (max-width:1100px){.hp1{display:none}.hp2{right:30%}}
+@media (max-width:860px){
+  .hero-art .hp{display:none}
+  .pc1{width:64px;right:6%;top:14%}.pc3{width:90px;right:-4%;top:82%}.pc2{right:auto;left:72%;top:88%}
+  .ec1{width:70px;left:4%;top:10%}.ec3{width:96px;right:-6%;bottom:6%}
+}
+
 /* ending */
 .ending{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 20px;
   background:radial-gradient(60% 50% at 50% 40%,rgba(201,242,107,.12),transparent 70%)}
@@ -235,3 +262,17 @@ html.anon .v-name,html:not(.anon) .v-you{display:none}
   .js .para{font-size:16px;line-height:1.55}
   .js .dots{margin-top:20px}
 }
+
+/* opening art: only where there's room, in its own right-hand column; text keeps to the left */
+.hp{display:none}
+@media (min-width:1200px){
+  .opening{max-width:none;padding-right:44%}
+  .opening h1{font-size:clamp(56px,5.4vw,88px)}
+  .hero-art{left:56%}
+  .hp{display:block}
+  .hp1{right:auto;left:4%;top:9%;width:190px}
+  .hp2{right:auto;left:22%;top:24%;width:220px}
+  .hp3{right:auto;left:48%;top:17%;width:240px}
+  .pc1{right:auto;left:40%;top:10%}.pc2{right:6%;top:78%}.pc3{right:auto;left:8%;top:74%;width:120px}
+}
+@media (min-width:861px) and (max-width:1199px){.pc1{right:5%;top:12%;width:70px}.pc3{right:2%;top:80%;width:100px}.pc2{right:14%;top:60%}}
