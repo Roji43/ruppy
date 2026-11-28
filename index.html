@@ -76,6 +76,52 @@
 .dev .month{ display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 15px; padding: 0 4px; }
 .dev .month i{ font-style: normal; width: 30px; height: 30px; border-radius: 50%; background: var(--surface); display: grid; place-items: center; font-size: 13px; }
 .dev .date{ font-size: 12px; color: var(--muted); font-weight: 600; }
+
+/* Hand-drawn arrow - positioned near input */
+.name-field {position:relative;display:inline-block}
+.hand-arrow{position:absolute;left:100%;top:8px;margin-left:10px;pointer-events:none}
+.hand-arrow svg{width:80px;height:30px}
+.hand-arrow .arrow-path{fill:none;stroke:#C9F26B;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hand-arrow .arrow-text{position:absolute;left:85px;top:6px;font-size:11px;color:#C9F26B;white-space:nowrap;font-weight:600;letter-spacing:.05em}
+
+/* Today's date */
+.today-date{margin-top:14px;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#55615D}
+.today-date::before{content:'';width:22px;height:1px;background:#C9F26B;display:inline-block;margin-right:10px}
+
+/* Hero art - fix opacity issues */
+.hero-art {position:relative;pointer-events:none}
+.hp {opacity:.6;transition:opacity .3s}
+.hp:hover {opacity:.8}
+.pc {opacity:.4;transition:opacity .3s}
+.pc:hover {opacity:.6}
+
+/* Phone animation into story */
+.phone {will-change:transform;transition:transform .6s cubic-bezier(.4,0,.2,1),opacity .6s}
+
+/* Story phone animation */
+.story .phone {opacity:0;animation:fadeInPhone .8s ease forwards .5s}
+@keyframes fadeInPhone {
+  to {opacity:1;transform:translateY(0)}
+}
+
+/* Disclaimer note styling */
+.disclaimer-note {margin-top:24px;font-size:11px;color:#55615D;line-height:1.6;max-width:600px;margin-left:auto;margin-right:auto;text-align:center}
+
+/* Header navigation - responsive */
+header.bar {position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(11,15,14,.9);backdrop-filter:blur(12px);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+header.bar .logo {display:flex;align-items:center;gap:10px;font-size:18px;font-weight:800;color:#fff;text-decoration:none}
+header.bar .logo img {width:32px;height:32px;border-radius:8px}
+header.bar .logo b {font-size:20px}
+header.bar .nav {display:flex;gap:24px}
+header.bar .nav a {color:#C9F26B;font-size:14px;font-weight:600;text-decoration:none;transition:opacity .2s}
+header.bar .nav a:hover {opacity:.8}
+header.bar .soon {color:#55615D;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase}
+
+@media (max-width: 768px) {
+  header.bar {flex-wrap:wrap;gap:12px}
+  header.bar .nav {order:3;width:100%;justify-content:center;gap:16px;font-size:13px}
+  header.bar .soon {display:none}
+}
 </style>
 </head>
 <body>
@@ -84,9 +130,10 @@
 <main id="top">
 <section class="opening">
   <p class="eyebrow-line"><span class="v-fam">A month in one family's life</span><span class="v-solo">A month in one person's life</span></p>
-  <h1>This is <span class="v-fam"><span class="v-name">the </span><span class="v-you"></span></span><span class="v-solo"></span><label class="name-field"><input id="family" aria-label="Your name or family name" value="" placeholder="your" maxlength="18" autocomplete="off" spellcheck="false" aria-describedby="name-hint"></label><span class="v-fam"> family's</span><span class="v-solo"><span class="v-name">'s</span><span class="v-you"></span></span> month.</h1>
   <fieldset class="mode"><legend class="sr">Whose month is it?</legend><label><input type="radio" name="mode" value="family" checked><span>My family</span></label><label><input type="radio" name="mode" value="solo"><span>Just me</span></label></fieldset>
+  <h1>This is <span class="v-fam"><span class="v-name">the </span><span class="v-you"></span></span><span class="v-solo"></span><label class="name-field"><input id="family" aria-label="Your name or family name" value="" placeholder="your" maxlength="18" autocomplete="off" spellcheck="false" aria-describedby="name-hint"><span class="hand-arrow"><svg viewBox="0 0 80 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 15 L60 15" stroke="#C9F26B" stroke-width="2" stroke-linecap="round"/><path d="M55 12 L60 15 L55 18" fill="none" stroke="#C9F26B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="arrow-text">Type your name / family name</span></span></label><span class="v-fam"> family's</span><span class="v-solo"><span class="v-name">'s</span><span class="v-you"></span></span> month.</h1>
   <p class="name-hint" id="name-hint">Ruppy works for one person or a whole family. Pick one, type your name or your family name, and the story becomes yours. Leave it blank and the story speaks to you. Both choices stay only in this browser.</p>
+  <div class="today-date" id="todayDate"></div>
   <a class="scroll-cue" href="#story">Start on payday <span aria-hidden="true">↓</span></a>
   <div class="hero-art" aria-hidden="true"><div class="hp hp1" data-speed=".04"><img src="assets/screens/ledger-30nov.png" alt=""></div><div class="hp hp2" data-speed=".08"><img src="assets/screens/review-teashop.png" alt=""></div><div class="hp hp3" data-speed=".14"><img src="assets/screens/today-3nov.png" alt=""></div><img class="pc pc1" data-speed="-.3" src="assets/ruppy-coin.png" alt=""><img class="pc pc2" data-speed="-.15" src="assets/ruppy-coin.png" alt=""><img class="pc pc3" data-speed="-.25" src="assets/ruppy-coin.png" alt=""></div>
 </section>
@@ -113,18 +160,54 @@
   <ul class="facts"><li>For one person or a whole family</li><li>Free, no ads</li><li>No bank login</li><li>Your SMS stay on your phone</li><li>Works without an account</li></ul>
   <p class="soon big">Coming soon to Google Play</p>
   <p class="end-line">Spend a little each day. Save the rest.</p>
+  <p class="disclaimer-note">The story and its numbers are an example for illustrative purposes only. In the future, some features will be added and existing features refined.</p>
 </section>
 </main>
 
 <footer class="foot">
-  <a href="privacy.html">Privacy policy</a><a href="delete-account.html">Delete your account</a><a href="mailto:designabbey.studio@gmail.com">Contact</a>
+  <a href="#features">Features</a><a href="#faq">FAQ</a>
   <p>© 2026 Design Abbey Studio. The story above is one family's example month, shared for illustration. Ruppy keeps growing — features will be added and refined over time. Google Play is a trademark of Google LLC.</p>
 </footer>
 
 <script>
 (() => {
-  const LINE = [[0, 0], [1, 65000], [1, 37200], [1, 36060], [2, 34920], [3, 33850], [4, 32710], [5, 31570], [6, 30430], [7, 29290], [8, 28150], [9, 27010], [10, 25170], [11, 24030], [12, 22890], [13, 21750], [14, 20610], [15, 19470], [16, 18330], [17, 17190], [18, 16050], [19, 14910], [20, 13770], [21, 12630], [22, 11490], [23, 10350], [24, 9210], [25, 8070], [26, 6930], [27, 5790], [28, 4650], [29, 3510], [30, 2350]], MAX = 65000, DAYS = 30;
+  // Keep original money line data but use today for all dates
+  const today = new Date();
+  const payday = new Date(today);
+  const DAYS = 30;
+  const LINE = [[0, 0], [1, 65000], [1, 37200], [1, 36060], [2, 34920], [3, 33850], [4, 32710], [5, 31570], [6, 30430], [7, 29290], [8, 28150], [9, 27010], [10, 25170], [11, 24030], [12, 22890], [13, 21750], [14, 20610], [15, 19470], [16, 18330], [17, 17190], [18, 16050], [19, 14910], [20, 13770], [21, 12630], [22, 11490], [23, 10350], [24, 9210], [25, 8070], [26, 6930], [27, 5790], [28, 4650], [29, 3510], [30, 2350]];
+  const MAX = 65000;
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  
+  // Date formatting helper
+  const formatDate = (date, showDay = true, showTime = false) => {
+    const options = { weekday: 'long', day: 'numeric', month: 'long' };
+    if (showTime) {
+      options.hour = 'numeric';
+      options.minute = '2-digit';
+      options.hour12 = true;
+    }
+    return date.toLocaleDateString('en-IN', options);
+  };
+  
+  // Calculate all story dates relative to payday (today)
+  const storyDates = {
+    payday: new Date(payday.getFullYear(), payday.getMonth(), payday.getDate()),
+    day1_morning: new Date(payday.getFullYear(), payday.getMonth(), payday.getDate()),
+    day1_evening: new Date(payday.getFullYear(), payday.getMonth(), payday.getDate(), 18, 0, 0, 0),
+    day3: new Date(payday.getFullYear(), payday.getMonth(), payday.getDate() + 2),
+    day3_evening: new Date(payday.getFullYear(), payday.getMonth(), payday.getDate() + 2, 20, 40),
+    day3_evening_plus: new Date(payday.getFullYear(), payday.getMonth(), payday.getDate() + 2, 20, 41),
+    day10: new Date(payday.getFullYear(), payday.getMonth(), payday.getDate() + 9),
+    day15: new Date(payday.getFullYear(), payday.getMonth(), payday.getDate() + 14),
+    day30: new Date(payday.getFullYear(), payday.getMonth(), payday.getDate() + 29)
+  };
+  
+  // Get day of month and short day for timeline
+  const getDayLabel = (offset) => {
+    const date = new Date(payday.getFullYear(), payday.getMonth(), payday.getDate() + offset);
+    return offset === 0 ? formatDate(date, true, false).replace(/^\w+,\s*/, '') : date.getDate();
+  };
   // the family name, typed by the visitor; textContent only, never HTML
   const input = document.getElementById('family');
   // remembered in this browser only (a per-viewer convenience); storage can be blocked, so every access is guarded
@@ -146,6 +229,72 @@
   radios.forEach(r => r.addEventListener('change', () => setMode(r.value)));
   let mode = 'family'; try { mode = localStorage.getItem('ruppy-mode') === 'solo' ? 'solo' : 'family'; } catch (e) {}
   setMode(mode);
+
+  // Set today's date
+  const todayDateEl = document.getElementById('todayDate');
+  todayDateEl.textContent = today.toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  
+  // Update all hardcoded dates with dynamic dates
+  function updateAllDates() {
+    // Timeline axis
+    const axisLabels = document.querySelectorAll('.ml-axis span');
+    if (axisLabels.length >= 4) {
+      axisLabels[0].textContent = getDayLabel(0);
+      axisLabels[1].textContent = getDayLabel(9);
+      axisLabels[2].textContent = getDayLabel(19);
+      axisLabels[3].textContent = getDayLabel(29);
+    }
+    
+    // Phone lock screen dates - replace hardcoded "Sunday, 1 November"
+    const phoneDates = document.querySelectorAll('.lk-date');
+    phoneDates.forEach((el) => {
+      el.textContent = formatDate(storyDates.payday, true, false);
+    });
+    
+    // Chapter stamps - replace all hardcoded dates
+    const stamps = document.querySelectorAll('.stamp');
+    if (stamps.length >= 8) {
+      // Day 1 morning
+      const day1MorningText = formatDate(storyDates.day1_morning, true, true).replace(/\s*AM/g, ' am').replace(/\s*PM/g, ' pm');
+      stamps[0].textContent = day1MorningText;
+      
+      // Day 1 evening - replace weekday with "Same day"
+      const day1EveningDate = formatDate(storyDates.day1_evening, true, false);
+      const day1EveningText = day1EveningDate.replace(/^\w+/, 'Same day') + ' · evening';
+      stamps[1].textContent = day1EveningText;
+      
+      // Day 3 evening
+      const day3Text = formatDate(storyDates.day3, true, true).replace(/\s*AM/g, ' am').replace(/\s*PM/g, ' pm');
+      stamps[2].textContent = day3Text;
+      
+      // Same evening
+      stamps[3].textContent = 'Same evening · 8:41 pm';
+      stamps[4].textContent = 'Same evening · 9:15 pm';
+      
+      // Other days
+      stamps[5].textContent = formatDate(storyDates.day10, true, false);
+      stamps[6].textContent = formatDate(storyDates.day15, true, false);
+      stamps[7].textContent = formatDate(storyDates.day30, true, false);
+    }
+    
+    // Recap dates
+    const recapDays = document.querySelectorAll('.f-day');
+    if (recapDays.length >= 6) {
+      recapDays[0].textContent = getDayLabel(0);
+      recapDays[1].textContent = getDayLabel(2);
+      recapDays[2].textContent = getDayLabel(2);
+      recapDays[3].textContent = getDayLabel(9);
+      recapDays[4].textContent = getDayLabel(14);
+      recapDays[5].textContent = getDayLabel(29);
+    }
+    
+    // Update disclaimer date
+    const disclaimer = document.querySelector('.why-note');
+    if (disclaimer) {
+      const disclaimerMonth = today.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' });
+      disclaimer.textContent = `App Store India reviews, collected in ${disclaimerMonth}.`;
+    }
+  }
 
   // money line: x = day, y = balance
   const X = d => d / DAYS * 1000, Y = v => 290 - v / MAX * 270;
@@ -197,6 +346,9 @@
   fitPhone(); onScroll();
   if (location.hash.startsWith('#day-')) { const a = document.querySelector('a[href="' + location.hash + '"]'); if (a) a.click(); }
   if (still) document.documentElement.classList.add('still');
+  
+  // Update all dates on the page
+  updateAllDates();
   // parallax: each layer moves at its own speed relative to its section's centre; off for reduced motion
   const layers = still ? [] : [...document.querySelectorAll('[data-speed]')];
   function drift() {
