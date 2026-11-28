@@ -88,13 +88,6 @@
 .today-date{margin-top:14px;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#55615D}
 .today-date::before{content:'';width:22px;height:1px;background:#C9F26B;display:inline-block;margin-right:10px}
 
-/* Hero art - fix opacity issues */
-.hero-art {position:relative;pointer-events:none}
-.hp {opacity:.6;transition:opacity .3s}
-.hp:hover {opacity:.8}
-.pc {opacity:.4;transition:opacity .3s}
-.pc:hover {opacity:.6}
-
 /* Phone animation into story */
 .phone {will-change:transform;transition:transform .6s cubic-bezier(.4,0,.2,1),opacity .6s}
 
@@ -103,6 +96,12 @@
 @keyframes fadeInPhone {
   to {opacity:1;transform:translateY(0)}
 }
+
+/* Hero art opacity adjustments - preserve story.css positioning */
+.hero-art .hp {opacity:.6;transition:opacity .3s}
+.hero-art .hp:hover {opacity:.8}
+.hero-art .pc {opacity:.4;transition:opacity .3s}
+.hero-art .pc:hover {opacity:.6}
 
 /* Disclaimer note styling */
 .disclaimer-note {margin-top:24px;font-size:11px;color:#55615D;line-height:1.6;max-width:600px;margin-left:auto;margin-right:auto;text-align:center}
